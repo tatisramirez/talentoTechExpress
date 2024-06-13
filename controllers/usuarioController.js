@@ -23,9 +23,9 @@ class UsuarioController{
 
         await UserSchema(nuevoUsuario).save()
         .then((result) => { // Cuando se ejecuta correctamente
-            res.send({"status": "success", "message": "Usuario Guardado correctamente"})
+            res.send({"status": "success", "msg": "Usuario Creado correctamente"})
         }).catch((error) => { // Cuando hay un error
-            res.send({"status": "error", "message": error.message})
+            res.send({"status": "error", "msg": error.message})
         })
     }
 
@@ -49,9 +49,9 @@ class UsuarioController{
 
         await UserSchema.findByIdAndUpdate(id, updateUser, { new: true })
         .then((result) => { // Cuando se ejecuta correctamente
-            res.send({"status": "success", "message": "Usuario Actualizado correctamente"})
+            res.send({"status": "success", "msg": "Usuario Actualizado correctamente"})
         }).catch((error) => { // Cuando hay un error
-            res.send({"status": "error", "message": error.message})
+            res.send({"status": "error", "msg": error.message})
         })
 
     }
@@ -61,21 +61,31 @@ class UsuarioController{
 
         await UserSchema.deleteOne({_id: id})
 
-        res.json({"status": "success", "message": "Usuario Eliminador correctamente"})
+        res.json({"status": "success", "msg": "Usuario Eliminado correctamente"})
     }
 
     async login(req, res){
         // Capturo el correo y la contraseña ingresados
-        var correo = req.params.correo;
-        var password = req.params.password
+        var correo = req.body.correo;
+        var password = req.body.password
 
         // Buscar el usuario por el correo
         var usuario = await UserSchema.findOne({correo})
         if(usuario){
             // Comparar la contraseña ingresada con la registrada por el usuario
             var verificacionClave = await bcrypt.compare(password, usuario.password)
+            // Si la verificación de la clave es exitosa
+            if(verificacionClave){
+                res.send({"status": "success",
+                          "msg": " Bienvenid@ " + usuario.nombre + " " + usuario.apellido,
+                          "user_id": usuario._id
+                })
+            }else{
+                res.send({"status": "error", "msg": "Datos invalidos"})
+            }
         }else{
-
+            // Cuando el correo ingresado no esta registrado
+            res.send({"status": "error", "msg": "El correo ingresado no existe"})
         }
 
     }
