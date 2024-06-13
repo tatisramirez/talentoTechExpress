@@ -1,5 +1,6 @@
 const UserSchema = require("../models/usuarios") // Accedemos a los datos del modelo
 const bcrypt = require('bcrypt') // Importamos la libreria de encriptacion
+const jwt = require('jsonwebtoken') // Importamos la libreria jwt
 
 class UsuarioController{
        
@@ -76,9 +77,15 @@ class UsuarioController{
             var verificacionClave = await bcrypt.compare(password, usuario.password)
             // Si la verificación de la clave es exitosa
             if(verificacionClave){
+
+                // Creo un token con la información codificada del usuario
+                usuario.password = null
+                const token = jwt.sign({usuario}, 'secret', {expiresIn: '1h'})
+
                 res.send({"status": "success",
                           "msg": " Bienvenid@ " + usuario.nombre + " " + usuario.apellido,
-                          "user_id": usuario._id
+                          "user_id": usuario._id,
+                          "token": token
                 })
             }else{
                 res.send({"status": "error", "msg": "Datos invalidos"})
