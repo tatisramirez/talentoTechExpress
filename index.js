@@ -13,6 +13,20 @@ const express = require('express') //Importando libreria
 const app = express() //Inicializamos la variable de la libreria
 const port = 3000 // Definimos puerto a usar
 
+const mongoose = require('mongoose'); // Importo la libreria mongoose
+
+// Obtengo la cadena de conexion del archivo .env
+require('dotenv').config()
+const DB_CONNECTION = process.env.DB_CONNECTION || ''
+mongoose.connect(DB_CONNECTION) // Creo la cadena de conexion
+
+
+// Importando las rutas del otro archivo
+app.use(express.urlencoded({extended: true})) // Acceder a a información de las urls
+app.use(express.json()) // Analizar información en formato JSON
+const usuarioRoutes = require('./routes/usuarioRoutes')
+app.use('/', usuarioRoutes)
+
 // Creando el servicio web
 // res -> Response -> Respuesta
 // req -> Request -> Información de entrada
@@ -68,24 +82,24 @@ app.get('/mascota/:tipo', (req, res) =>{
     res.send(animal)
 })
 
-//
-app.post('/otros', (req, res) =>{
-    res.send("Esta es otra opción")
+//Solicitud POST
+app.post('/usuario', (req, res) =>{
+    res.send("Estoy creando un usuario")
 })
 
-//
-app.put('/otros', (req, res) =>{
-    res.send("Esta es otra opción")
+//Solicitud PUT
+app.put('/usuario', (req, res) =>{
+    res.send("Estoy actualizando un usuario con PUT")
 })
 
-//
-app.delete('/otros', (req, res) =>{
-    res.send("Esta es otra opción")
+//Solicitud PATCH
+app.patch('/usuario', (req, res) =>{
+    res.send("Estoy actualizando un usuario con PATCH")
 })
 
-//
-app.get('/otros', (req, res) =>{
-    res.send("Esta es otra opción")
+//Solicitud DELETE
+app.delete('/usuario', (req, res) =>{
+    res.send("Estoy eliminando un usuario")
 })
 
 //Ejecutamos el servidor
