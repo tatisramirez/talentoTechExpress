@@ -27,9 +27,9 @@ class CarroController {
 
         await CarroSchema(nuevoCarro).save()
         .then((result) => { // Cuando se ejecuta correctamente
-            res.send({"status": "success", "message": "Carro Creado correctamente"})
+            res.send({"status": "success", "msg": "Carro Creado correctamente"})
         }).catch((error) => { // Cuando hay un error
-            res.send({"status": "error", "message": error.message})
+            res.send({"status": "error", "msg": error.message})
         })
     }
 
@@ -49,9 +49,9 @@ class CarroController {
 
         await CarroSchema.findByIdAndUpdate(id, nuevoCarro, { new: true })
         .then((result) => { // Cuando se ejecuta correctamente
-            res.send({"status": "success", "message": "Carro Actualizado correctamente"})
+            res.send({"status": "success", "msg": "Carro Actualizado correctamente"})
         }).catch((error) => { // Cuando hay un error
-            res.send({"status": "error", "message": error.message})
+            res.send({"status": "error", "msg": error.message})
         })
     }
 
@@ -61,7 +61,7 @@ class CarroController {
 
         await CarroSchema.deleteOne({_id: id})
 
-        res.json({"status": "success", "message": "Carro Eliminado correctamente"})
+        res.json({"status": "success", "msg": "Carro Eliminado correctamente"})
     }
 
 }

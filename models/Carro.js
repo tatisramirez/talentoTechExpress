@@ -51,7 +51,7 @@ const CarroSchema = new mongoose.Schema({
             validator: function(capacidad){
                 return capacidad > 0 & capacidad < 7;
             },
-            message: props => props.value + " No es una capacidad válido"
+            message: props => props.value + " No es una capacidad válida"
         }
     }
 })
