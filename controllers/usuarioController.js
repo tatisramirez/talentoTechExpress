@@ -1,4 +1,4 @@
-const UserSchema = require("../models/usuarios") // Accedemos a los datos del modelo
+const UserSchema = require("../models/Usuario") // Accedemos a los datos del modelo
 const bcrypt = require('bcrypt') // Importamos la libreria de encriptacion
 const jwt = require('jsonwebtoken') // Importamos la libreria jwt
 

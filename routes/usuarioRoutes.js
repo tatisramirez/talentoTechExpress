@@ -1,5 +1,5 @@
 const express = require('express') // Importando libreria
-const UsuarioController = require('../controllers/usuarioController') // Importando el controlador
+const UsuarioController = require('../controllers/UsuarioController') // Importando el controlador
 const app = express() // Inicializamos la variable de la libreria
 const controller = new UsuarioController(); // Creando una instancia
 
