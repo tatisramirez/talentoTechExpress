@@ -26,7 +26,7 @@ class UsuarioController{
         .then((result) => { // Cuando se ejecuta correctamente
             res.send({"status": "success", "msg": "Usuario Creado correctamente"})
         }).catch((error) => { // Cuando hay un error
-            res.send({"status": "error", "msg": error.message})
+            res.status(400).send({"status": "error", "msg": error.message})
         })
     }
 
@@ -52,7 +52,7 @@ class UsuarioController{
         .then((result) => { // Cuando se ejecuta correctamente
             res.send({"status": "success", "msg": "Usuario Actualizado correctamente"})
         }).catch((error) => { // Cuando hay un error
-            res.send({"status": "error", "msg": error.message})
+            res.status(400).send({"status": "error", "msg": error.message})
         })
 
     }
@@ -88,11 +88,11 @@ class UsuarioController{
                           "token": token
                 })
             }else{
-                res.send({"status": "error", "msg": "Datos invalidos"})
+                res.status(401).send({"status": "error", "msg": "Datos invalidos"})
             }
         }else{
             // Cuando el correo ingresado no esta registrado
-            res.send({"status": "error", "msg": "El correo ingresado no existe"})
+            res.status(401).send({"status": "error", "msg": "El correo ingresado no existe"})
         }
 
     }
