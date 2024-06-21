@@ -20,6 +20,9 @@ require('dotenv').config()
 const DB_CONNECTION = process.env.DB_CONNECTION || ''
 mongoose.connect(DB_CONNECTION) // Creo la cadena de conexion
 
+// Agregamos la configuraciòn del cors
+const cors = require('cors')
+app.use(cors());
 
 // Importando las rutas del otro archivo
 app.use(express.urlencoded({extended: true})) // Acceder a a información de las urls
